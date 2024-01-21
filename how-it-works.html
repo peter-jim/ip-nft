@@ -15,12 +15,39 @@
   <link rel="stylesheet" href="assets/css/style.css">
 
 
-   <!-- 引入 ECharts 的主题样式文件，这里使用了 'dark' 主题 -->
+  <!-- 引入 ECharts 的主题样式文件，这里使用了 'dark' 主题 -->
 
-   <script src="https://cdn.tailwindcss.com"></script>
-   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
-   
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  </link>
+
+  <style>
+    #ip-tabs {
+      display: none;
+    }
+
+    #ip-info {
+      position: fixed;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      width: 300px;
+      background-color: #222;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 20px;
+      color: white;
+      text-align: left;
+      transition: top 0.1s ease;
+      margin-right: 10px;
+    }
+
+    .show-info {
+      display: block;
+    }
+  </style>
+
 </head>
 
 <body class="cs-dark">
@@ -36,12 +63,13 @@
 
 
   <!-- Start Header Section -->
-  <header class="cs-site_header cs-style1 cs-sticky-header cs-white_bg">
+  <header id="siteHeader" class="cs-site_header cs-style1 cs-sticky-header cs-white_bg">
     <div class="cs-main_header">
       <div class="container-fluid">
         <div class="cs-main_header_in">
           <div class="cs-main_header_left">
-            <a class="cs-site_branding" href="index.html"><img src="https://udaya.dev/assets/img/logo.png" alt="Logo"></a>
+            <a class="cs-site_branding" href="index_3.html"><img src="https://udaya.dev/assets/img/logo.png"
+                alt="Logo"></a>
           </div>
           <div class="cs-main_header_right">
 
@@ -53,16 +81,16 @@
                       <li><a href="index_3.html">Home</a></li>
                       <li><a href="how-it-works.html">IDO</a></li>
                     </ul>
-                   
+
                   </div>
                 </div>
               </div>
             </div>
             <div class="cs-header_btns_wrap">
               <div class="cs-header_btns">
-      
 
-        
+
+
                 <a href="#" id="connect-wallet-link" class="cs-btn cs-style1"><span>Connect Wallet</span></a>
               </div>
             </div>
@@ -81,57 +109,118 @@
       <div class="text-center">
         <h1 class="cs-page_title">Udaya Nostr luanchpad</h1>
         <ol class="breadcrumb">
-    
+
         </ol>
       </div>
     </div>
   </section>
   <!-- End Page Head -->
 
-  <div class="cs-height_60 cs-height_lg_40"></div>
 
-  <div  style="display: flex;">
-    <div style="flex: 2;">
-        <div id="echartnode" style="flex: 2; height: 400px; margin-left: 150px;"></div>
-    </div>
-    <div id="card" style="flex: 1; margin-left: 150px;">
-        <div style="width: 300px; background-color: #222; border: 1px solid #ccc; border-radius: 10px; padding: 20px; color: white; text-align: left;">
-            <h2 style="margin-top: 0; font-size: 24px; font-weight: bold; color: #ff9900; text-transform: uppercase; text-align: center;">Token Sale</h2>
-            <div style="margin-bottom: 20px; color: #ff9900; font-size: 18px; font-weight: bold; text-align: center;">Goal: 100,000,000 USDT</div>
-            <div style="margin-bottom: 20px;">
-                <span style="font-weight: bold; color: #ff9900;">State:</span> Sold Out
-            </div>
-            <div style="margin-bottom: 20px;">
-                <span style="font-weight: bold; color: #ff9900;">Raised:</span> $5,000,000,000
-            </div>
-            <div style="margin-bottom: 20px;">
-                <span style="font-weight: bold; color: #ff9900;">Price:</span> 1 Token = 1 USDT
-            </div>
-            <div style="margin-bottom: 20px;">
-                <span style="font-weight: bold; color: #ff9900;">Start:</span> 2023-01-02 11:25
-            </div>
-            <div style="margin-bottom: 20px;">
-                <span style="font-weight: bold; color: #ff9900;">End:</span> 2023-03-02 00:00
-            </div>
-            <div style="margin-bottom: 20px;  font-size: 18px;  text-align: center;">
-                <button style="width: 100%; background-color: #007bff; color: white; border: none; border-radius: 5px; padding: 10px 20px; text-decoration: none; font-weight: bold; display: inline-block; transition: background-color 0.3s ease; text-align: center;" href="#">Apply</button>
-            </div>
+  <div style="position: relative; height: 100vh;">
+    <div id="echartnode" style="height: 90%; width: 90%;margin-left: 20px;"></div>
+    <div id="card" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%);">
+      <!-- card内容 -->
+      <div
+        style="width: 300px; background-color: #222; border: 1px solid #ccc; border-radius: 10px; padding: 20px; color: white; text-align: left;">
+        <h2
+          style="margin-top: 0; font-size: 24px; font-weight: bold; color: #ff9900; text-transform: uppercase; text-align: center;">
+          Token Sale</h2>
+        <div style="margin-bottom: 20px; color: #ff9900; font-size: 18px; font-weight: bold; text-align: center;">Goal:
+          100,000,000 USDT</div>
+        <div style="margin-bottom: 20px;">
+          <span style="font-weight: bold; color: #ff9900;">State:</span> Sold Out
         </div>
+        <div style="margin-bottom: 20px;">
+          <span style="font-weight: bold; color: #ff9900;">Raised:</span> $5,000,000,000
+        </div>
+        <div style="margin-bottom: 20px;">
+          <span style="font-weight: bold; color: #ff9900;">Price:</span> 1 Token = 1 USDT
+        </div>
+        <div style="margin-bottom: 20px;">
+          <span style="font-weight: bold; color: #ff9900;">Start:</span> 2023-01-02 11:25
+        </div>
+        <div style="margin-bottom: 20px;">
+          <span style="font-weight: bold; color: #ff9900;">End:</span> 2023-03-02 00:00
+        </div>
+        <div style="margin-bottom: 20px;  font-size: 18px;  text-align: center;">
+          <button
+            style="width: 100%; background-color: #007bff; color: white; border: none; border-radius: 5px; padding: 10px 20px; text-decoration: none; font-weight: bold; display: inline-block; transition: background-color 0.3s ease; text-align: center;"
+            href="#">Apply</button>
+        </div>
+      </div>
     </div>
-</div>
+
+    <div style="position: absolute; bottom: 250px; left: 20px;">
+      <button id="findMeButton"
+        style="display: block; margin-bottom: 10px; width: 120px; height: 40px; line-height: 40px; text-align: center; background-color: #4c4c4c; color: #fff; border: none; border-radius: 20px; font-family: Arial, sans-serif; font-size: 14px; cursor: pointer; transition: background-color 0.3s;"
+        onmouseover="this.style.backgroundColor='#00b8d4';" onmouseout="this.style.backgroundColor='#4c4c4c';">find
+        me</button>
+      <button id="resetButton"
+        style="display: block; width: 120px; height: 40px; line-height: 40px; text-align: center; background-color: #4c4c4c; color: #fff; border: none; border-radius: 20px; font-family: Arial, sans-serif; font-size: 14px; cursor: pointer; transition: background-color 0.3s;"
+        onmouseover="this.style.backgroundColor='#00b8d4';"
+        onmouseout="this.style.backgroundColor='#4c4c4c';">reset</button>
+    </div>
+    <div style="position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%);">
+      <button id="scrollButton" data-target="#ip-tabs"
+        style="background-color: transparent; color: white; border: none; border-radius: 5px; padding: 10px 20px; font-weight: bold; transition: background-color 0.3s ease;">
+        <span
+          style="display: inline-block; vertical-align: middle; transform: rotate(45deg); transition: transform 0.3s ease; font-size: 14px;">
+          &#8595;
+        </span>
+        Scroll Down
+      </button>
+    </div>
+
+  </div>
+
+
 
 
 
   <!-- End Icon Boxes -->
-  <div class="cs-height_60 cs-height_lg_40"></div>
 
-  <div style="display: flex;" >
+
+    <div id="ip-info"
+      style="width: 300px; background-color: #222; border: 1px solid #ccc; border-radius: 10px; padding: 20px; color: white; text-align: left;">
+      <h2
+        style="margin-top: 0; font-size: 24px; font-weight: bold; color: #ff9900; text-transform: uppercase; text-align: center;">
+        Token Sale</h2>
+      <div style="margin-bottom: 20px; color: #ff9900; font-size: 18px; font-weight: bold; text-align: center;">Goal:
+        100,000,000 USDT</div>
+      <div style="margin-bottom: 20px;">
+        <span style="font-weight: bold; color: #ff9900;">State:</span> Sold Out
+      </div>
+      <div style="margin-bottom: 20px;">
+        <span style="font-weight: bold; color: #ff9900;">Raised:</span> $5,000,000,000
+      </div>
+      <div style="margin-bottom: 20px;">
+        <span style="font-weight: bold; color: #ff9900;">Price:</span> 1 Token = 1 USDT
+      </div>
+      <div style="margin-bottom: 20px;">
+        <span style="font-weight: bold; color: #ff9900;">Start:</span> 2023-01-02 11:25
+      </div>
+      <div style="margin-bottom: 20px;">
+        <span style="font-weight: bold; color: #ff9900;">End:</span> 2023-03-02 00:00
+      </div>
+      <div style="margin-bottom: 20px;  font-size: 18px;  text-align: center;">
+        <button
+          style="width: 100%; background-color: #007bff; color: white; border: none; border-radius: 5px; padding: 10px 20px; text-decoration: none; font-weight: bold; display: inline-block; transition: background-color 0.3s ease; text-align: center;"
+          href="#">Apply</button>
+      </div>
+    </div>
+
+
+
+  <div id="ip-tabs" style="display: flex; ">
     <div style="flex: 2;">
       <div class="cs-tabs cs-fade_tabs cs-style1">
         <div class="cs-medium" style="margin-left: 150px;">
           <ul class="cs-tab_links cs-style1 cs-medium cs-primary_color cs-mp0 cs-primary_font">
             <li class="active"><a href="#Description">Blog</a></li>
             <li><a href="#Details">Contract Metrics</a></li>
+            <li><a href="#TaprootAssets">TaprootAssets</a></li>
+            <li><a href="#ipnft">IP-NFT</a></li>
           </ul>
         </div>
         <div class="cs-height_20 cs-height_lg_20"></div>
@@ -155,11 +244,20 @@
                     </div>
                     <img src="assets/img/single-post1.jpeg" alt="">
                     <p>
-                      It is a long established fact that a reader will be distrac by the readable content of a page when looking at its layout. The point of using Lorem Ipm i has a more-ornormal distribution of letters,as opposed It is a long established fact that a reader will be distrac by the readable content of a page when looking at itslayout. The point of using Lorem Ipm i has a NFTs <br><br>
-                      Crypto is a long established fact that a reader will be distrac by the readable content of a page when looking at its layout. The point of using Lorem Ipm i has a more-ornormal distribution of letters,as opposed It is a long established fact that a reader will be distrac by the readable content of a page when looking at itslayout. The point of using Lorem Ipm i has a NFTs
+                      It is a long established fact that a reader will be distrac by the readable content of a page when
+                      looking at its layout. The point of using Lorem Ipm i has a more-ornormal distribution of
+                      letters,as opposed It is a long established fact that a reader will be distrac by the readable
+                      content of a page when looking at itslayout. The point of using Lorem Ipm i has a NFTs <br><br>
+                      Crypto is a long established fact that a reader will be distrac by the readable content of a page
+                      when looking at its layout. The point of using Lorem Ipm i has a more-ornormal distribution of
+                      letters,as opposed It is a long established fact that a reader will be distrac by the readable
+                      content of a page when looking at itslayout. The point of using Lorem Ipm i has a NFTs
                     </p>
                     <h3>What is an NFT art?</h3>
-                    <p>NFTS Music is a long established fact that a reader will be distrac by the readable content of a page when looking at its layout. The point of using Lorem Ipm i has a more-ornormal distribution of letters,as opposed It is a long established fact that a reader will be distrac by the readable content of a page when looking at itslayout. The point of using Lorem Ipm i has a NFTs</p>
+                    <p>NFTS Music is a long established fact that a reader will be distrac by the readable content of a
+                      page when looking at its layout. The point of using Lorem Ipm i has a more-ornormal distribution
+                      of letters,as opposed It is a long established fact that a reader will be distrac by the readable
+                      content of a page when looking at itslayout. The point of using Lorem Ipm i has a NFTs</p>
                     <ul>
                       <li>How to make and sell an NFT.</li>
                       <li>Buy some cryptocurrency to fund your wallet.</li>
@@ -170,8 +268,14 @@
                     <div class="cs-height_10 cs-height_lg_10"></div>
                     <img src="assets/img/single-post2.jpeg" alt="">
                     <p>
-                      NFTs a long established fact that a reader will be distrac by the readable content of a page when looking at its layout. The point of using Lorem Ipm i has a more-ornormal distribution of letters,as opposed It is a long established fact that a reader will be distrac by the readable content of a page when looking at itslayout. The point of using Lorem Ipm i has a NFTs<br><br>
-                      Digital Art long established fact that a reader will be distrac by the readable content of a page when looking at its layout. The point of using Lorem Ipm i has a more-ornormal distribution of letters,as opposed It is a long established fact that a reader will be distrac by the readable content of a page when looking at itlayout. The point of using Lorem Ipm i has a NFTs
+                      NFTs a long established fact that a reader will be distrac by the readable content of a page when
+                      looking at its layout. The point of using Lorem Ipm i has a more-ornormal distribution of
+                      letters,as opposed It is a long established fact that a reader will be distrac by the readable
+                      content of a page when looking at itslayout. The point of using Lorem Ipm i has a NFTs<br><br>
+                      Digital Art long established fact that a reader will be distrac by the readable content of a page
+                      when looking at its layout. The point of using Lorem Ipm i has a more-ornormal distribution of
+                      letters,as opposed It is a long established fact that a reader will be distrac by the readable
+                      content of a page when looking at itlayout. The point of using Lorem Ipm i has a NFTs
                     </p>
                   </div>
                   <div class="cs-height_60 cs-height_lg_30"></div>
@@ -181,25 +285,30 @@
                       <li class="comment">
                         <div class="comment-body">
                           <div class="comment-author vcard">
-                            <img class="avatar" src="assets/img/avatar/avatar_5.png" alt="Author"> 
+                            <img class="avatar" src="assets/img/avatar/avatar_5.png" alt="Author">
                             <a href="#" class="url">George Steven</a>
                           </div>
                           <div class="comment-meta">
                             <a href="#">Jan 24, 2022 at 9:59 am </a>
                           </div>
-                          <p>Donec pellentesque luctus tortor finibus blandit. Fusce tincidunt lectus augue, quis commodo justo tincidunt eget. Praesent at elit diam. Tortor finibus blandit</p>
+                          <p>Donec pellentesque luctus tortor finibus blandit. Fusce tincidunt lectus augue, quis
+                            commodo justo tincidunt eget. Praesent at elit diam. Tortor finibus blandit</p>
                           <div class="reply"><a class="comment-reply-link" href="#">
-                            Reply
-                            <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M1 5.74707H8.5C10.0913 5.74707 11.6174 6.37921 12.7426 7.50443C13.8679 8.62965 14.5 10.1558 14.5 11.7471V13.2471M1 5.74707L5.5 10.2471M1 5.74707L5.5 1.24707" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>                    
-                          </a></div>
+                              Reply
+                              <svg width="16" height="14" viewBox="0 0 16 14" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M1 5.74707H8.5C10.0913 5.74707 11.6174 6.37921 12.7426 7.50443C13.8679 8.62965 14.5 10.1558 14.5 11.7471V13.2471M1 5.74707L5.5 10.2471M1 5.74707L5.5 1.24707"
+                                  stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round" />
+                              </svg>
+                            </a></div>
                         </div>
                         <ol class="children">
                           <li class="comment">
                             <div class="comment-body">
                               <div class="comment-author vcard">
-                                <img class="avatar" src="assets/img/avatar/avatar_11.png" alt="Author"> 
+                                <img class="avatar" src="assets/img/avatar/avatar_11.png" alt="Author">
                                 <a href="#" class="url">Sarah Taylor</a>
                               </div>
                               <div class="comment-meta">
@@ -207,11 +316,15 @@
                               </div>
                               <p>Thanks bro 🙂</p>
                               <div class="reply"><a class="comment-reply-link" href="#">
-                                Reply
-                                <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M1 5.74707H8.5C10.0913 5.74707 11.6174 6.37921 12.7426 7.50443C13.8679 8.62965 14.5 10.1558 14.5 11.7471V13.2471M1 5.74707L5.5 10.2471M1 5.74707L5.5 1.24707" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg> 
-                              </a></div>
+                                  Reply
+                                  <svg width="16" height="14" viewBox="0 0 16 14" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                      d="M1 5.74707H8.5C10.0913 5.74707 11.6174 6.37921 12.7426 7.50443C13.8679 8.62965 14.5 10.1558 14.5 11.7471V13.2471M1 5.74707L5.5 10.2471M1 5.74707L5.5 1.24707"
+                                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                      stroke-linejoin="round" />
+                                  </svg>
+                                </a></div>
                             </div>
                           </li><!-- #comment-## -->
                         </ol><!-- .children -->
@@ -219,23 +332,28 @@
                       <li class="comment cs-accent_4_bg">
                         <div class="comment-body">
                           <div class="comment-author vcard">
-                            <img class="avatar" src="assets/img/avatar/avatar_7.png" alt="Author"> 
+                            <img class="avatar" src="assets/img/avatar/avatar_7.png" alt="Author">
                             <a href="#" class="url">Jhon Doe</a>
                           </div>
                           <div class="comment-meta">
                             <a href="#">Jan 24, 2022 at 9:59 am </a>
                           </div>
-                          <p>Fusce tincidunt lectus augue, quis commodo justo tincidunt eget. Praesent at elit diam. Tortor finibus blandit. Donec pellentesque luctus tortor finibus blandit.</p>
+                          <p>Fusce tincidunt lectus augue, quis commodo justo tincidunt eget. Praesent at elit diam.
+                            Tortor finibus blandit. Donec pellentesque luctus tortor finibus blandit.</p>
                           <div class="reply"><a class="comment-reply-link" href="#">
-                            Reply
-                            <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M1 5.74707H8.5C10.0913 5.74707 11.6174 6.37921 12.7426 7.50443C13.8679 8.62965 14.5 10.1558 14.5 11.7471V13.2471M1 5.74707L5.5 10.2471M1 5.74707L5.5 1.24707" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg> 
-                          </a></div>
+                              Reply
+                              <svg width="16" height="14" viewBox="0 0 16 14" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M1 5.74707H8.5C10.0913 5.74707 11.6174 6.37921 12.7426 7.50443C13.8679 8.62965 14.5 10.1558 14.5 11.7471V13.2471M1 5.74707L5.5 10.2471M1 5.74707L5.5 1.24707"
+                                  stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round" />
+                              </svg>
+                            </a></div>
                         </div>
                       </li><!-- #comment-## -->
                     </ol><!-- .comment-list -->
-                  </div>                 
+                  </div>
                 </div>
               </div>
             </div>
@@ -244,7 +362,9 @@
             <div class="cs-medium" style="margin-left: 160px; background-color: black;">
               <table style="border-collapse: collapse; width: 100%; margin-top: 20px;">
                 <tr>
-                  <th colspan="2" style="border: 1px solid gray; padding: 8px; background-color: black; text-align: left;">Token Sale</th>
+                  <th colspan="2"
+                    style="border: 1px solid gray; padding: 8px; background-color: black; text-align: left;">Token Sale
+                  </th>
                 </tr>
                 <tr>
                   <td style="border: 1px solid gray; padding: 8px; text-align: left;">Sale Price</td>
@@ -252,15 +372,18 @@
                 </tr>
                 <tr>
                   <td style="border: 1px solid gray; padding: 8px; text-align: left;">Sale Start Time</td>
-                  <td style="border: 1px solid gray; padding: 8px; text-align: left;">September 29th 2021<br>1:00 PM - UTC</td>
+                  <td style="border: 1px solid gray; padding: 8px; text-align: left;">September 29th 2021<br>1:00 PM -
+                    UTC</td>
                 </tr>
                 <tr>
                   <td style="border: 1px solid gray; padding: 8px; text-align: left;">Sale End Time</td>
-                  <td style="border: 1px solid gray; padding: 8px; text-align: left;">September 30th 2021<br>12:30 PM - UTC</td>
+                  <td style="border: 1px solid gray; padding: 8px; text-align: left;">September 30th 2021<br>12:30 PM -
+                    UTC</td>
                 </tr>
                 <tr>
                   <td style="border: 1px solid gray; padding: 8px; text-align: left;">Token Distribution Time</td>
-                  <td style="border: 1px solid gray; padding: 8px; text-align: left;">September 30th 2021<br>12:30 PM - UTC</td>
+                  <td style="border: 1px solid gray; padding: 8px; text-align: left;">September 30th 2021<br>12:30 PM -
+                    UTC</td>
                 </tr>
                 <tr>
                   <td style="border: 1px solid gray; padding: 8px; text-align: left;">Initial Market Cap</td>
@@ -273,14 +396,101 @@
               </table>
             </div>
           </div><!-- .cs-tab -->
+          <div id="TaprootAssets" style="border-collapse: collapse; width: 100%; margin-top: 20px;">
+            <div class="cs-medium" style="margin-left: 160px; background-color: black;">
+              <table style="border: 1px solid gray; padding: 8px; text-align: left;">
+                <tr>
+                  <th>Token Name</th>
+                  <td>Taproot Assets</td>
+                </tr>
+                <tr>
+                  <th>Token Symbol</th>
+                  <td>TAP</td>
+                </tr>
+                <tr>
+                  <th>Total Supply</th>
+                  <td>1,000,000 TAP</td>
+                </tr>
+                <tr>
+                  <th>Decimal Precision</th>
+                  <td>18</td>
+                </tr>
+                <tr>
+                  <th>Contract Address</th>
+                  <td><a href="https://etherscan.io/address/0x1234567890abcdef1234567890abcdef12345678"
+                      target="_blank">0x1234567890abcdef1234567890abcdef12345678</a></td>
+                </tr>
+                <tr>
+                  <th>Official Website</th>
+                  <td><a href="https://taprootassets.com" target="_blank">taprootassets.com</a></td>
+                </tr>
+                <tr>
+                  <th>Whitepaper</th>
+                  <td><a href="https://taprootassets.com/whitepaper" target="_blank">taprootassets.com/whitepaper</a>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Launch Date</th>
+                  <td>May 15, 2022</td>
+                </tr>
+                <tr>
+                  <th>Market Price</th>
+                  <td>$0.25</td>
+                </tr>
+                <tr>
+                  <th>Market Cap</th>
+                  <td>$250,000</td>
+                </tr>
+                <tr>
+                  <th>Exchanges</th>
+                  <td>Exchange A, Exchange B, Exchange C</td>
+                </tr>
+                <tr>
+                  <th>Network/Blockchain</th>
+                  <td>Ethereum</td>
+                </tr>
+              </table>
+            </div>
+
+          </div>
+
+          <div id="ipnft" class="cs-tab" style="border-collapse: collapse; width: 100%; margin-top: 20px;">
+
+            <div class="cs-medium" style="margin-left: 160px; background-color: black;">
+              <table style="border-collapse: collapse; width: 100%; margin-top: 20px;">
+                <tr>
+                  <th colspan="2"
+                    style="border: 1px solid gray; padding: 8px; background-color: black; text-align: left;">IP-NFT
+                    Airdrop
+                  </th>
+                </tr>
+                <tr>
+                  <td style="border: 1px solid gray; padding: 8px; text-align: left;">Round 1</td>
+                  <td style="border: 1px solid gray; padding: 8px; text-align: left;">Q2 2024 (April 1 - June 30)</td>
+                </tr>
+                <tr>
+                  <td style="border: 1px solid gray; padding: 8px; text-align: left;">Round 2</td>
+                  <td style="border: 1px solid gray; padding: 8px; text-align: left;">Q3 2024 (July 1 - September 30)
+                  </td>
+                </tr>
+                <tr>
+                  <td style="border: 1px solid gray; padding: 8px; text-align: left;">Round 3</td>
+                  <td style="border: 1px solid gray; padding: 8px; text-align: left;">Q4 2024 (October 1 - December 31)
+                  </td>
+                </tr>
+
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
     <div style="flex: 1;">
 
-    
+
     </div>
   </div>
+
 
 
 
@@ -307,12 +517,14 @@
                 <h2 class="cs-accordian_title">Do you have to mint an NFT to sell it?</h2>
                 <span class="cs-accordian_toggle">
                   <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1.62109 0.750977L6.95443 6.08431L12.2878 0.750977" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>                  
+                    <path d="M1.62109 0.750977L6.95443 6.08431L12.2878 0.750977" stroke="currentColor"
+                      stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
                 </span>
               </div>
               <div class="cs-accordian-body">
-                <p>Once you have minted a piece of artwork on a marketplace as an <br>NFT, you should never mint it on another platform. If you ever decide <br>to do so, note that most platforms reserve</p>
+                <p>Once you have minted a piece of artwork on a marketplace as an <br>NFT, you should never mint it on
+                  another platform. If you ever decide <br>to do so, note that most platforms reserve</p>
               </div>
             </div><!-- .cs-accordian -->
             <div class="cs-accordian">
@@ -320,12 +532,14 @@
                 <h2 class="cs-accordian_title">How much does the average NFT sell for?</h2>
                 <span class="cs-accordian_toggle">
                   <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1.62109 0.750977L6.95443 6.08431L12.2878 0.750977" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>                  
+                    <path d="M1.62109 0.750977L6.95443 6.08431L12.2878 0.750977" stroke="currentColor"
+                      stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
                 </span>
               </div>
               <div class="cs-accordian-body">
-                <p>Once you have minted a piece of artwork on a marketplace as an <br>NFT, you should never mint it on another platform. If you ever decide <br>to do so, note that most platforms reserve</p>
+                <p>Once you have minted a piece of artwork on a marketplace as an <br>NFT, you should never mint it on
+                  another platform. If you ever decide <br>to do so, note that most platforms reserve</p>
               </div>
             </div><!-- .cs-accordian -->
             <div class="cs-accordian">
@@ -333,12 +547,14 @@
                 <h2 class="cs-accordian_title">What kind of NFTs sell best?</h2>
                 <span class="cs-accordian_toggle">
                   <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1.62109 0.750977L6.95443 6.08431L12.2878 0.750977" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>                  
+                    <path d="M1.62109 0.750977L6.95443 6.08431L12.2878 0.750977" stroke="currentColor"
+                      stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
                 </span>
               </div>
               <div class="cs-accordian-body">
-                <p>Once you have minted a piece of artwork on a marketplace as an <br>NFT, you should never mint it on another platform. If you ever decide <br>to do so, note that most platforms reserve</p>
+                <p>Once you have minted a piece of artwork on a marketplace as an <br>NFT, you should never mint it on
+                  another platform. If you ever decide <br>to do so, note that most platforms reserve</p>
               </div>
             </div><!-- .cs-accordian -->
             <div class="cs-accordian">
@@ -346,12 +562,14 @@
                 <h2 class="cs-accordian_title">How to make money with NFTs as a beginner?</h2>
                 <span class="cs-accordian_toggle">
                   <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1.62109 0.750977L6.95443 6.08431L12.2878 0.750977" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>                  
+                    <path d="M1.62109 0.750977L6.95443 6.08431L12.2878 0.750977" stroke="currentColor"
+                      stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
                 </span>
               </div>
               <div class="cs-accordian-body">
-                <p>Once you have minted a piece of artwork on a marketplace as an <br>NFT, you should never mint it on another platform. If you ever decide <br>to do so, note that most platforms reserve</p>
+                <p>Once you have minted a piece of artwork on a marketplace as an <br>NFT, you should never mint it on
+                  another platform. If you ever decide <br>to do so, note that most platforms reserve</p>
               </div>
             </div><!-- .cs-accordian -->
             <div class="cs-accordian">
@@ -359,12 +577,14 @@
                 <h2 class="cs-accordian_title">Who owns the most expensive NFT?</h2>
                 <span class="cs-accordian_toggle">
                   <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1.62109 0.750977L6.95443 6.08431L12.2878 0.750977" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>                  
+                    <path d="M1.62109 0.750977L6.95443 6.08431L12.2878 0.750977" stroke="currentColor"
+                      stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
                 </span>
               </div>
               <div class="cs-accordian-body">
-                <p>Once you have minted a piece of artwork on a marketplace as an <br>NFT, you should never mint it on another platform. If you ever decide <br>to do so, note that most platforms reserve</p>
+                <p>Once you have minted a piece of artwork on a marketplace as an <br>NFT, you should never mint it on
+                  another platform. If you ever decide <br>to do so, note that most platforms reserve</p>
               </div>
             </div><!-- .cs-accordian -->
           </div><!-- .cs-accordians -->
@@ -389,7 +609,7 @@
         <div class="cs-footer_separetor"></div>
         <div class="cs-footer_bottom_in">
           <div class="cs-copyright">Copyright 2024. Created By Udaya.</div>
-         
+
         </div>
       </div>
     </div>
@@ -425,31 +645,31 @@
 
 
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
       // 获取连接钱包的链接元素
       const connectWalletLink = document.getElementById('connect-wallet-link');
-      
+
       // 添加点击事件监听器
-      connectWalletLink.addEventListener('click', function(event) {
+      connectWalletLink.addEventListener('click', function (event) {
         event.preventDefault(); // 阻止链接的默认行为
-        
+
         // 检查 MetaMask 是否可用
         if (typeof window.ethereum !== 'undefined') {
           // 请求用户授权连接 MetaMask
           window.ethereum.request({ method: 'eth_requestAccounts' })
-            .then(function(accounts) {
+            .then(function (accounts) {
               // 用户已连接到 MetaMask，accounts 数组包含用户账户地址
               const account = accounts[0];
               console.log('用户账户地址：', account);
-              
+
               // 将用户地址的一部分替换为链接文本
               const truncatedAddress = `${account.substring(0, 6)}...${account.substring(account.length - 4)}`;
               connectWalletLink.innerHTML = truncatedAddress;
-              
+
               // 执行其他逻辑，如发送交易或调用智能合约
               // ...
             })
-            .catch(function(error) {
+            .catch(function (error) {
               // 处理错误情况
               console.error(error);
             });
@@ -459,105 +679,188 @@
         }
       });
     });
-    </script>
+  </script>
 
-    <!-- 引入 ECharts 的 JavaScript 文件 -->
-    <script type="text/javascript" src="https://cdn.staticfile.org/jquery/3.7.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://registry.npmmirror.com/echarts/5.4.3/files/dist/echarts.min.js"></script>
-    <!-- Uncomment this line if you want to dataTool extension
+  <!-- 引入 ECharts 的 JavaScript 文件 -->
+  <script type="text/javascript" src="https://cdn.staticfile.org/jquery/3.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://registry.npmmirror.com/echarts/5.4.3/files/dist/echarts.min.js"></script>
+  <!-- Uncomment this line if you want to dataTool extension
     <script type="text/javascript" src="https://registry.npmmirror.com/echarts/5.4.3/files/dist/extension/dataTool.min.js"></script>
     -->
-    <!-- Uncomment this line if you want to use gl extension
+  <!-- Uncomment this line if you want to use gl extension
     <script type="text/javascript" src="https://registry.npmmirror.com/echarts-gl/2/files/dist/echarts-gl.min.js"></script>
     -->
-    <!-- Uncomment this line if you want to echarts-stat extension
+  <!-- Uncomment this line if you want to echarts-stat extension
     <script type="text/javascript" src="https://registry.npmmirror.com/echarts-stat/latest/files/dist/ecStat.min.js"></script>
     -->
-    <!-- Uncomment this line if you want to use map
+  <!-- Uncomment this line if you want to use map
     <script type="text/javascript" src="https://registry.npmmirror.com/echarts/4.9.0/files/map/js/china.js"></script>
     <script type="text/javascript" src="https://registry.npmmirror.com/echarts/4.9.0/files/map/js/world.js"></script>
     -->
-    <!-- Uncomment these two lines if you want to use bmap extension
+  <!-- Uncomment these two lines if you want to use bmap extension
     <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
     <script type="text/javascript" src="https://registry.npmmirror.com/echarts/5.4.3/files/dist/extension/bmap.min.js"></script>
     -->
-  
-    <script type="text/javascript">
-      var dom = document.getElementById('echartnode');
-      var myChart = echarts.init(dom, 'dark', {
-        renderer: 'canvas',
-        useDirtyRect: false
-      });
-      var app = {};
-      var ROOT_PATH = 'https://echarts.apache.org/examples';
-      var option;
-  
-      myChart.showLoading();
-  $.getJSON('./data.json', function (graph) {
-    myChart.hideLoading();
-    graph.nodes.forEach(function (node) {
-      node.label = {
-        show: node.symbolSize > 30
-      };
+
+  <script type="text/javascript">
+    var dom = document.getElementById('echartnode');
+    var myChart = echarts.init(dom, 'dark', {
+      renderer: 'canvas',
+      useDirtyRect: false
     });
-    option = {
-      title: {
-        text: 'Nostr Social Graph',
-        subtext: 'Default layout',
-        top: 'bottom',
-        left: 'right'
-      },
-      tooltip: {},
-      legend: [
-      {
-        // selectedMode: 'single',
-        orient: 'vertical',
-    left: 'left',
-    top: 'bottom',
-    data: graph.categories.map(function (a) {
-      return a.name;
-    })
-      }
-      ],
-      animationDuration: 1500,
-      animationEasingUpdate: 'quinticInOut',
-      series: [
-        {
-          name: 'Les Miserables',
-          type: 'graph',
-          layout: 'none',
-          data: graph.nodes,
-          links: graph.links,
-          categories: graph.categories,
-          roam: true,
-          label: {
-            position: 'right',
-            formatter: '{b}'
-          },
-          lineStyle: {
-            color: 'source',
-            curveness: 0.3
-          },
-          emphasis: {
-            focus: 'adjacency',
+    var app = {};
+    var ROOT_PATH = 'https://echarts.apache.org/examples';
+    var option;
+
+    var data;
+
+    myChart.showLoading();
+    $.getJSON('./data.json', function (graph) {
+      myChart.hideLoading();
+
+
+
+      data = graph.nodes.forEach(function (node) {
+        node.label = {
+          show: node.symbolSize > 30
+        };
+      });
+
+
+      option = {
+        title: {
+          text: 'Nostr Social Graph',
+          subtext: 'Default layout',
+          top: 'bottom',
+          left: 'right'
+        },
+        tooltip: {},
+        legend: [
+          {
+            // selectedMode: 'single',
+            orient: 'horizontal',
+            left: 'center',
+            top: 'top', // 将此处的值修改为 'top'
+            data: graph.categories.map(function (a) {
+              return a.name;
+            })
+          }
+        ],
+        animationDuration: 1500,
+        animationEasingUpdate: 'quinticInOut',
+        series: [
+          {
+            name: 'Les Miserables',
+            type: 'graph',
+            layout: 'none',
+            data: graph.nodes,
+            links: graph.links,
+            categories: graph.categories,
+            roam: true,
+            label: {
+              position: 'right',
+              formatter: '{b}'
+            },
             lineStyle: {
-              width: 10
+              color: 'source',
+              curveness: 0.3
+            },
+            emphasis: {
+              focus: 'adjacency',
+              lineStyle: {
+                width: 10
+              }
             }
           }
-        }
-      ]
-    };
-    myChart.setOption(option);
-  });
-  
-      if (option && typeof option === 'object') {
-        myChart.setOption(option);
+        ]
+      };
+      myChart.setOption(option);
+    });
+
+
+
+    // 点击 "reset" 按钮时重新设置图表位置
+    var resetButton = document.getElementById('resetButton');
+    resetButton.addEventListener('click', function () {
+      myChart.dispatchAction({
+        type: 'restore' // 恢复初始位置
+      });
+    });
+
+    // 点击 "find me" 按钮时跳转到指定点的位置
+    var findMeButton = document.getElementById('findMeButton');
+    findMeButton.addEventListener('click', function () {
+
+
+      myChart.dispatchAction({
+        type: 'focusNodeAdjacency', // 调整焦点节点的位置
+        seriesIndex: 1,
+        dataIndex: 32,
+        focusNodeAdjacency: true,
+        blurNodeAdjacency: false
+      });
+
+    });
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+
+    window.addEventListener('resize', myChart.resize);
+
+  </script>
+
+  <script>
+    document.getElementById('scrollButton').addEventListener('click', function () {
+      const targetElement = document.querySelector(this.getAttribute('data-target'));
+      targetElement.scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
+
+
+  <script>
+    var prevScrollPos = window.pageYOffset;
+    var siteHeader = document.getElementById('siteHeader');
+    var timer = null;
+
+    window.onscroll = function () {
+      var currentScrollPos = window.pageYOffset;
+
+      if (prevScrollPos > currentScrollPos) {
+        // 向上滚动，显示 Header
+        siteHeader.style.transform = 'translateY(0)';
+      } else {
+        // 向下滚动，隐藏 Header
+        siteHeader.style.transform = 'translateY(-100%)';
       }
-  
-      window.addEventListener('resize', myChart.resize);
-    </script>
 
+      prevScrollPos = currentScrollPos;
 
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        // 在3秒内无滑动时，自动收起 Header
+        siteHeader.style.transform = 'translateY(-100%)';
+      }, 3000);
+    };
+  </script>
+
+<script>
+  var ipTabs = document.getElementById('ip-tabs');
+  var ipInfo = document.getElementById('ip-info');
+
+  window.addEventListener('scroll', function() {
+    var rect = ipTabs.getBoundingClientRect();
+    var isOnScreen = rect.top <= 0;
+
+    if (isOnScreen) {
+      ipInfo.classList.add('show-info');
+    } else {
+      ipInfo.classList.remove('show-info');
+    }
+  });
+</script>
 
 </body>
+
 </html>
